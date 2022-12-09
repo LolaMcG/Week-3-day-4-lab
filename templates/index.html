@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title>
+</head>
+<body>
+    <h1>Event List</h1>
+    <form action="/events" method="post">
+
+    <label for="event_name">Event Name:</label><br>
+    <input type="text" name="event_name" id="event_name"><br>
+
+    <label for="date">Event Date:</label><br>
+    <input type="date" id="datepicker" name="date"
+        value="date"
+        min="2022-01-01" max="2023-12-31"><br>
+
+    <label for="no_guest">Number of Guests:</label><br>
+    <input type="text" name="no_guests" id="no_guest"><br>
+
+    <label for="room_location">Where:</label><br>
+    <input type="text" name="room_location" id="room_location"><br>
+
+    <label for="description">Description:</label><br>
+    <input type="text" name="description" id="description"><br>
+
+    <label for="TF">Recurring</label><br>
+    <select name="recurring" id="TF">
+        <option value="True">True</option>
+        <option value="False">False</option>
+    </select>
+    <br>
+
+    <input type="submit" value="Submit">
+    </form>
+    <h2>Remove Item from List or some shit</h2>
+    <form action="/events/delete" method=['POST']>
+        <label for="delete_event_name">Event Name:</label><br>
+        <input type="text" name="delete_event_name" id="delete_event_name"><br>
+        <input type="submit" value="Delete">
+    </form>
+    <ul>
+        {% for event in events %}
+        <li>
+            <p>
+                <b>{{event.event_name}}</b>: {{event.date}}: {{event.no_guest}}: {{event.room_location}}: {{event.description}}
+                {% if event.recurring %}
+                    <span>&#9989;</span>
+                {% endif %}
+            </p>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
